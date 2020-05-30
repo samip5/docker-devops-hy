@@ -1,0 +1,6 @@
+version: "3.8"
+services:
+  test:
+    image: devopsdockeruh/first_volume_exercise
+    volumes:
+      - ./logs.txt:/usr/app/logs.txt

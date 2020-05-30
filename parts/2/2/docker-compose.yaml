@@ -1,0 +1,6 @@
+version: "3.8"
+services:
+  test:
+    image: devopsdockeruh/ports_exercise
+    ports:
+     - 127.0.0.1:80:80

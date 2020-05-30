@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  frontend:
+    build:
+     context: ./frontend/
+     dockerfile: Dockerfile
+    ports:
+     - 127.0.0.1:5000:5000
+    depends_on:
+     - backend
+  backend:
+    build:
+     context: ./backend/
+     dockerfile: Dockerfile
+    ports:
+     - 127.0.0.1:8000:8000
+    environment:
+     - REDIS=redis
+     - DB_USERNAME=user
+     - DB_PASSWORD=NOTPROD
+     - DB_HOST=database
+    depends_on:
+     - redis
+     - database
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: unless-stopped
+  database:
+    image: postgres
+    environment:
+     - POSTGRES_PASSWORD=NOTPROD
+     - POSTGRES_USER=user

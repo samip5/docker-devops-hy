@@ -12,6 +12,8 @@ USER node
 
 RUN npm install
 
+ENV FRONT_URL=http://localhost:5000
+
 COPY --chown=node:node . .
 
 EXPOSE 8000

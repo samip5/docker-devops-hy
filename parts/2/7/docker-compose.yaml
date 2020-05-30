@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  frontend:
+    build:
+     context: ./frontend/
+     dockerfile: Dockerfile
+    ports:
+     - 127.0.0.1:3000:3000
+    depends_on:
+     - backend
+  backend:
+    build:
+     context: ./backend/
+     dockerfile: Dockerfile
+    ports:
+     - 5000
+    depends_on:
+     - training
+    volumes:
+     - VOLUME-1:/src/model
+  training:
+    build:
+     context: ./training/
+     dockerfile: Dockerfile
+    volumes:
+     - VOLUME-1:/src/model
+     - VOLUME-2:/src/data
+     - VOLUME-3:/src/imgs  
+
+volumes:
+ VOLUME-1:
+ VOLUME-2:
+ VOLUME-3:

@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+  proxy:
+    image: nginx
+    container_name: proxy
+    ports:
+     - 80:80
+    volumes:
+     - ./nginx-conf/nginx.conf:/etc/nginx/nginx.conf
+  frontend:
+    container_name: frontend
+    hostname: frontend
+    build:
+     context: ./frontend/
+     dockerfile: Dockerfile
+    expose:
+     - 5000
+    depends_on:
+     - backend
+     - proxy
+    environment:
+     - API_URL=http://127.0.0.1/api
+  backend:
+    container_name: backend
+    hostname: backend
+    build:
+     context: ./backend/
+     dockerfile: Dockerfile
+    expose:
+     - 8000
+    environment:
+     - REDIS=redis
+     - DB_USERNAME=user
+     - DB_PASSWORD=NOTPROD
+     - DB_HOST=database
+     - FRONT_URL=http://127.0.0.1
+    depends_on:
+     - redis
+     - database
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: unless-stopped
+  database:
+    image: postgres
+    environment:
+     - POSTGRES_PASSWORD=NOTPROD
+     - POSTGRES_USER=user

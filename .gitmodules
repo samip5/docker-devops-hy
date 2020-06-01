@@ -1,3 +1,6 @@
 [submodule "parts/1/1.15"]
 	path = parts/1/15
 	url = https://github.com/samip5/archlinux-docker
+[submodule "parts/3/2"]
+	path = parts/3/2
+	url = https://github.com/samip5/devops-with-docker-lynxchan
